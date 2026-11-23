@@ -11,7 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AntreanRouteImport } from './routes/antrean'
+import { Route as InvestigasiRouteImport } from './routes/investigasi'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as RiwayatRouteImport } from './routes/riwayat'
+import { Route as TindakLanjutRouteImport } from './routes/tindak-lanjut'
 import { Route as AntreanIndexRouteImport } from './routes/antrean.index'
 import { Route as AntreanClaimIdRouteImport } from './routes/antrean.$claimId'
 
@@ -25,9 +28,24 @@ const AntreanRoute = AntreanRouteImport.update({
   path: '/antrean',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InvestigasiRoute = InvestigasiRouteImport.update({
+  id: '/investigasi',
+  path: '/investigasi',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RiwayatRoute = RiwayatRouteImport.update({
+  id: '/riwayat',
+  path: '/riwayat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TindakLanjutRoute = TindakLanjutRouteImport.update({
+  id: '/tindak-lanjut',
+  path: '/tindak-lanjut',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AntreanIndexRoute = AntreanIndexRouteImport.update({
@@ -44,13 +62,19 @@ const AntreanClaimIdRoute = AntreanClaimIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/antrean': typeof AntreanRouteWithChildren
+  '/investigasi': typeof InvestigasiRoute
   '/login': typeof LoginRoute
+  '/riwayat': typeof RiwayatRoute
+  '/tindak-lanjut': typeof TindakLanjutRoute
   '/antrean/$claimId': typeof AntreanClaimIdRoute
   '/antrean/': typeof AntreanIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/investigasi': typeof InvestigasiRoute
   '/login': typeof LoginRoute
+  '/riwayat': typeof RiwayatRoute
+  '/tindak-lanjut': typeof TindakLanjutRoute
   '/antrean/$claimId': typeof AntreanClaimIdRoute
   '/antrean': typeof AntreanIndexRoute
 }
@@ -58,23 +82,52 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/antrean': typeof AntreanRouteWithChildren
+  '/investigasi': typeof InvestigasiRoute
   '/login': typeof LoginRoute
+  '/riwayat': typeof RiwayatRoute
+  '/tindak-lanjut': typeof TindakLanjutRoute
   '/antrean/$claimId': typeof AntreanClaimIdRoute
   '/antrean/': typeof AntreanIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/antrean' | '/login' | '/antrean/$claimId' | '/antrean/'
+  fullPaths:
+    | '/'
+    | '/antrean'
+    | '/investigasi'
+    | '/login'
+    | '/riwayat'
+    | '/tindak-lanjut'
+    | '/antrean/$claimId'
+    | '/antrean/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/antrean/$claimId' | '/antrean'
+  to:
+    | '/'
+    | '/investigasi'
+    | '/login'
+    | '/riwayat'
+    | '/tindak-lanjut'
+    | '/antrean/$claimId'
+    | '/antrean'
   id:
-    '__root__' | '/' | '/antrean' | '/login' | '/antrean/$claimId' | '/antrean/'
+    | '__root__'
+    | '/'
+    | '/antrean'
+    | '/investigasi'
+    | '/login'
+    | '/riwayat'
+    | '/tindak-lanjut'
+    | '/antrean/$claimId'
+    | '/antrean/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AntreanRoute: typeof AntreanRouteWithChildren
+  InvestigasiRoute: typeof InvestigasiRoute
   LoginRoute: typeof LoginRoute
+  RiwayatRoute: typeof RiwayatRoute
+  TindakLanjutRoute: typeof TindakLanjutRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -93,11 +146,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AntreanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/investigasi': {
+      id: '/investigasi'
+      path: '/investigasi'
+      fullPath: '/investigasi'
+      preLoaderRoute: typeof InvestigasiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/riwayat': {
+      id: '/riwayat'
+      path: '/riwayat'
+      fullPath: '/riwayat'
+      preLoaderRoute: typeof RiwayatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tindak-lanjut': {
+      id: '/tindak-lanjut'
+      path: '/tindak-lanjut'
+      fullPath: '/tindak-lanjut'
+      preLoaderRoute: typeof TindakLanjutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/antrean/': {
@@ -133,7 +207,10 @@ const AntreanRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AntreanRoute: AntreanRouteWithChildren,
+  InvestigasiRoute: InvestigasiRoute,
   LoginRoute: LoginRoute,
+  RiwayatRoute: RiwayatRoute,
+  TindakLanjutRoute: TindakLanjutRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

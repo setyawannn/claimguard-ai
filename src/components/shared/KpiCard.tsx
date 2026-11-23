@@ -7,6 +7,7 @@ interface KpiCardProps {
   inlineSubtitle?: string
   subtitle?: string
   valueSize?: '24' | '26'
+  valueClassName?: string
   badge?: ReactNode
   leadingIcon?: ReactNode
   footer?: ReactNode
@@ -20,6 +21,7 @@ export function KpiCard({
   inlineSubtitle,
   subtitle,
   valueSize = '26',
+  valueClassName,
   badge,
   leadingIcon,
   footer,
@@ -72,6 +74,7 @@ export function KpiCard({
             className={cn(
               'font-bold leading-tight tracking-tight text-[var(--color-text-primary)] tabular-nums',
               valueSize === '24' ? 'text-[24px]' : 'text-[26px]',
+              valueClassName,
             )}
           >
             {value}

@@ -198,6 +198,9 @@ export async function submitClaimDecision(
             : false,
         clarificationRequestedAt:
           input.decision === 'klarifikasi' ? nowIso : undefined,
+        ...(input.hospitalResponded !== undefined
+          ? { hospitalRespondedAt: input.hospitalResponded ? nowIso : null }
+          : {}),
         verifiedBy: isFinal ? actor.id : null,
         verifiedAt: isFinal ? now : null,
         updatedAt: now,
@@ -217,6 +220,7 @@ export async function submitClaimDecision(
         tariffIdr: current.tariffIdr,
         revisedTariffIdr: input.revisedTariffIdr ?? null,
         escalatedToPkjkn: Boolean(input.escalateToPkjkn),
+        hospitalResponded: input.hospitalResponded ?? null,
       }),
     }),
     db

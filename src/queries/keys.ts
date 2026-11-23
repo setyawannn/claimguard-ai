@@ -1,5 +1,13 @@
-import type { ClaimsFilterInput } from '#/schemas/claims.schema'
-import type { ClustersFilterInput } from '#/schemas/clusters.schema'
+import type {
+  ClaimsFilterInput,
+  ClaimsHistoryFilterInput,
+} from '#/schemas/claims.schema'
+import type {
+  ClusterFollowupFilterInput,
+  ClustersFilterInput,
+  InvestigationSearchInput,
+  RegionalDashboardFilterInput,
+} from '#/schemas/clusters.schema'
 import type { HospitalsFilterInput } from '#/schemas/hospitals.schema'
 
 export const queryKeys = {
@@ -14,12 +22,17 @@ export const queryKeys = {
     list: (filters: ClaimsFilterInput) =>
       ['claims', 'list', filters] as const,
     detail: (claimId: string) => ['claims', 'detail', claimId] as const,
-    history: (branchCode: string) =>
-      ['claims', 'history', branchCode] as const,
+    history: (filters: ClaimsHistoryFilterInput) =>
+      ['claims', 'history', filters] as const,
   },
   clusters: {
     all: ['clusters'] as const,
-    dashboard: () => ['clusters', 'dashboard'] as const,
+    dashboard: (filters: RegionalDashboardFilterInput) =>
+      ['clusters', 'dashboard', filters] as const,
+    investigation: (params: InvestigationSearchInput) =>
+      ['clusters', 'investigation', params] as const,
+    followup: (filters: ClusterFollowupFilterInput) =>
+      ['clusters', 'followup', filters] as const,
     list: (filters: ClustersFilterInput) =>
       ['clusters', 'list', filters] as const,
     detail: (clusterId: string) => ['clusters', 'detail', clusterId] as const,

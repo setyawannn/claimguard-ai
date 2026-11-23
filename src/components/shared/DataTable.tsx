@@ -21,6 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from '#/components/ui/table'
+import { cn } from '#/lib/utils'
 import { EmptyState, LoadingState } from './EmptyState'
 
 const features = tableFeatures({
@@ -37,6 +38,7 @@ interface DataTableProps<TData extends RowData> {
   rowSelection?: RowSelectionState
   onRowSelectionChange?: (next: RowSelectionState) => void
   onRowClick?: (row: TData) => void
+  getRowClassName?: (row: TData) => string | undefined
   isLoading?: boolean
   emptyTitle?: string
   emptyDescription?: string
@@ -54,6 +56,7 @@ export function DataTable<TData extends RowData>({
   rowSelection,
   onRowSelectionChange,
   onRowClick,
+  getRowClassName,
   isLoading = false,
   emptyTitle = 'Tidak ada data yang cocok',
   emptyDescription = 'Sesuaikan filter atau kata kunci pencarian Anda.',
@@ -156,11 +159,10 @@ export function DataTable<TData extends RowData>({
             <TableRow
               key={row.id}
               onClick={onRowClick ? () => onRowClick(row.original) : undefined}
-              className={
-                onRowClick
-                  ? 'cursor-pointer hover:bg-[var(--color-bg-canvas)]'
-                  : undefined
-              }
+              className={cn(
+                onRowClick && 'cursor-pointer hover:bg-[var(--color-bg-canvas)]',
+                getRowClassName?.(row.original),
+              )}
             >
               {row.getAllCells().map((cell) => (
                 <TableCell key={cell.id}>

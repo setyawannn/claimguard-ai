@@ -59,8 +59,16 @@ export function formatSlaRemaining(
   return `SLA ${days} hr`
 }
 
+export function formatThousandsId(raw: string): string {
+  const digits = raw.replace(/\D/g, '').replace(/^0+(?=\d)/, '')
+  if (!digits) return ''
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+}
+
 export async function copyToClipboard(text: string): Promise<boolean> {
-  if (typeof navigator === 'undefined' || !navigator.clipboard) return false
+  if (typeof navigator === 'undefined' || !('clipboard' in navigator)) {
+    return false
+  }
   try {
     await navigator.clipboard.writeText(text)
     return true

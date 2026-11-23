@@ -1,12 +1,10 @@
-import { createFileRoute, useRouter } from '@tanstack/react-router'
-import { z } from 'zod'
+import { createFileRoute } from '@tanstack/react-router'
+import type { z } from 'zod'
 import { requireRouteRole } from '#/lib/route-guards'
 import { AntreanPage } from '#/pages/verifikator/AntreanPage'
 import { claimsQueueQueryOptions } from '#/queries/claims.queries'
-import {
-  claimsFilterSchema,
-  type ClaimsFilterInput,
-} from '#/schemas/claims.schema'
+import { claimsFilterSchema } from '#/schemas/claims.schema'
+import type { ClaimsFilterInput } from '#/schemas/claims.schema'
 
 type ClaimsSearchParams = z.input<typeof claimsFilterSchema>
 
@@ -36,18 +34,16 @@ export const Route = createFileRoute('/antrean/')({
 function AntreanRoute() {
   const rawSearch = Route.useSearch()
   const filters = toFilterInput(rawSearch)
-  const router = useRouter()
+  const navigate = Route.useNavigate()
 
   const handleFiltersChange = (patch: Partial<ClaimsFilterInput>) => {
-    void router.navigate({
-      to: '/antrean',
+    void navigate({
       search: (prev) => ({ ...prev, ...patch }),
     })
   }
 
   const handleResetFilters = () => {
-    void router.navigate({
-      to: '/antrean',
+    void navigate({
       search: filters.tab === 'perlu_telaah' ? {} : { tab: filters.tab },
     })
   }

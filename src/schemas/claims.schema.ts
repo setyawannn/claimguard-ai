@@ -220,3 +220,85 @@ export interface SubmitClaimDecisionResult {
   clusterCode: string | null
   escalationReasons: string[]
 }
+
+export const historyTabSchema = z.enum(['semua', 'perlu_final', 'sudah_final'])
+
+export const historyStatusFilterSchema = z.enum([
+  'klarifikasi',
+  'balasan_rs',
+  'disetujui',
+  'false_positive',
+  'pending_rs',
+  'ditolak',
+])
+
+export const claimsHistoryFilterSchema = z.object({
+  tab: historyTabSchema.default('semua'),
+  period: z.string().max(16).optional(),
+  hospitalId: z.string().max(32).optional(),
+  status: historyStatusFilterSchema.optional(),
+  onlyNeedFinal: z.coerce.boolean().optional(),
+  search: z.string().trim().max(64).optional(),
+  page: z.coerce.number().int().min(1).max(500).default(1),
+  limit: z.coerce.number().int().min(1).max(50).default(10),
+})
+export type ClaimsHistoryFilterInput = z.infer<typeof claimsHistoryFilterSchema>
+
+export interface ClaimHistoryItem {
+  id: string
+  noSep: string
+  admissionDate: string
+  eventTimestampIso: string
+  patientAlias: string
+  patientGender: 'L' | 'P'
+  patientAge: number
+  inacbgCode: string
+  inacbgDescription: string
+  hospitalId: string
+  hospitalName: string
+  facilityType: string
+  doctorName: string
+  tariffIdr: number
+  revisedTariffIdr: number | null
+  riskScore: number
+  fraudTypology: z.infer<typeof fraudTypologySchema>
+  status: z.infer<typeof claimStatusSchema>
+  fromStatusLabel: string
+  isNeedFinal: boolean
+  initialClarificationNote: string | null
+  clarificationRequestedAt: string | null
+  hospitalResponseNote: string | null
+  hospitalRespondedAt: string | null
+  decisionNote: string | null
+  escalatedToPkjkn: boolean
+}
+
+export interface ClaimsHistorySummary {
+  totalCount: number
+  needFinalCount: number
+  finalizedCount: number
+  approvedCount: number
+  approvedAmountIdr: number
+  falsePositiveCount: number
+  pendingRsCount: number
+  rejectedCount: number
+  rejectedSavingsIdr: number
+}
+
+export interface HistoryPeriodOption {
+  value: string
+  label: string
+}
+
+export interface ClaimsHistoryResponse {
+  items: ClaimHistoryItem[]
+  pagination: {
+    page: number
+    limit: number
+    totalItems: number
+    totalPages: number
+  }
+  summary: ClaimsHistorySummary
+  hospitals: HospitalOption[]
+  periods: HistoryPeriodOption[]
+}
