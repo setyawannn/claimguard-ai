@@ -1,0 +1,235 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@import 'tw-animate-css';
+
+/*
+ * ClaimGuard AI — FigCraft Design Tokens (Semantic · Light)
+ * Sumber: design/claimguard-ai-design.figcraft (82 variables, 7 text styles)
+ */
+@theme static {
+  /* Typography */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Cascadia Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* FigCraft Primitives */
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+  --color-blue-500: #3b82f6;
+  --color-blue-50: #eff6ff;
+  --color-blue-200: #bfdbfe;
+
+  --color-red-600: #dc2626;
+  --color-red-50: #fef2f2;
+  --color-red-200: #fecaca;
+  --color-red-800: #991b1b;
+
+  --color-amber-600: #d97706;
+  --color-amber-50: #fffbeb;
+  --color-amber-200: #fde68a;
+  --color-amber-800: #92400e;
+
+  --color-emerald-500: #10b981;
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-200: #a7f3d0;
+  --color-emerald-800: #065f46;
+
+  --color-violet-600: #7c3aed;
+  --color-violet-50: #f5f3ff;
+  --color-violet-200: #ddd6fe;
+  --color-violet-800: #5b21b6;
+
+  --color-slate-900: #0f172a;
+  --color-slate-700: #334155;
+  --color-slate-500: #475569; /* FigCraft contrast-adjusted secondary text (>7:1) */
+  --color-slate-400: #94a3b8;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f1f5f9;
+  --color-slate-50: #f8fafc;
+  --color-white: #ffffff;
+
+  /* FigCraft Semantic Tokens */
+  --color-bg-canvas: var(--color-slate-50);
+  --color-bg-surface: var(--color-white);
+  --color-bg-muted: var(--color-slate-100);
+
+  --color-text-primary: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-text-on-primary: var(--color-white);
+
+  --color-border-default: var(--color-slate-200);
+  --color-border-dashed: var(--color-slate-300);
+  --color-border-strong: var(--color-slate-900);
+  --color-line-connector: var(--color-slate-400);
+
+  --color-action-primary: var(--color-blue-600);
+  --color-action-primary-hover: var(--color-blue-700);
+  --color-action-primary-accent: var(--color-blue-500);
+  --color-action-primary-bg: var(--color-blue-50);
+  --color-action-primary-border: var(--color-blue-200);
+
+  --color-risk-high: var(--color-red-600);
+  --color-risk-high-bg: var(--color-red-50);
+  --color-risk-high-border: var(--color-red-200);
+  --color-risk-high-text: var(--color-red-800);
+
+  --color-risk-medium: var(--color-amber-600);
+  --color-risk-medium-bg: var(--color-amber-50);
+  --color-risk-medium-border: var(--color-amber-200);
+  --color-risk-medium-text: var(--color-amber-800);
+
+  --color-risk-low: var(--color-emerald-500);
+  --color-risk-low-bg: var(--color-emerald-50);
+  --color-risk-low-border: var(--color-emerald-200);
+  --color-risk-low-text: var(--color-emerald-800);
+
+  --color-status-clarify: var(--color-violet-600);
+  --color-status-clarify-bg: var(--color-violet-50);
+  --color-status-clarify-border: var(--color-violet-200);
+  --color-status-clarify-text: var(--color-violet-800);
+
+  /* FigCraft Spacing & Radius */
+  --radius-sm: 6px;
+  --radius-node: 8px;
+  --radius-card: 12px;
+  --radius-card-lg: 20px;
+  --radius-shell: 28px;
+  --radius-pill: 999px;
+}
+
+/* Mapping ke variabel shadcn/ui */
+:root {
+  --radius: 0.5rem;
+  --background: var(--color-bg-canvas);
+  --foreground: var(--color-text-primary);
+  --card: var(--color-bg-surface);
+  --card-foreground: var(--color-text-primary);
+  --popover: var(--color-bg-surface);
+  --popover-foreground: var(--color-text-primary);
+  --primary: var(--color-action-primary);
+  --primary-foreground: var(--color-text-on-primary);
+  --secondary: var(--color-bg-muted);
+  --secondary-foreground: var(--color-text-primary);
+  --muted: var(--color-bg-muted);
+  --muted-foreground: var(--color-text-secondary);
+  --accent: var(--color-action-primary-bg);
+  --accent-foreground: var(--color-action-primary);
+  --destructive: var(--color-risk-high);
+  --destructive-foreground: var(--color-text-on-primary);
+  --border: var(--color-border-default);
+  --input: var(--color-border-default);
+  --ring: var(--color-action-primary);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* 7 Text Styles FigCraft */
+.text-h1 {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.text-h2 {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.text-h3 {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.text-caption-label {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+.text-caption-tag {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+.font-mono-code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 3 Utilitas Struktur Khusus ClaimGuard AI */
+.focal-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-blue-700) 0%,
+    var(--color-blue-500) 100%
+  );
+  color: var(--color-text-on-primary);
+}
+
+.external-boundary {
+  background-color: var(--color-bg-canvas);
+  border: 1px dashed var(--color-border-dashed);
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border-width: 1px;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+}
