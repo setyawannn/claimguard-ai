@@ -46,6 +46,8 @@ export const users = sqliteTable(
   'users',
   {
     id: text('id').primaryKey(),
+    email: text('email').notNull().unique(),
+    passwordHash: text('password_hash').notNull(),
     name: text('name').notNull(),
     role: text('role', {
       enum: ['verifikator', 'auditor_wilayah', 'kepala_cabang'],
@@ -57,7 +59,29 @@ export const users = sqliteTable(
       .notNull()
       .default(sql`(unixepoch())`),
   },
-  (table) => [index('idx_users_role').on(table.role)],
+  (table) => [
+    index('idx_users_role').on(table.role),
+    index('idx_users_email').on(table.email),
+  ],
+)
+
+// 3b. Sesi autentikasi server-side (menyimpan SHA-256 hash token, bukan token mentah)
+export const sessions = sqliteTable(
+  'sessions',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
+    createdAt: integer('created_at', { mode: 'timestamp' })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (table) => [
+    index('idx_sessions_user').on(table.userId),
+    index('idx_sessions_expires').on(table.expiresAt),
+  ],
 )
 
 // 4. FKRTL Mitra (12 RS KC Malang + Faskes Lintas Cabang Divre Jatim)

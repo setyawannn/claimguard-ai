@@ -8,6 +8,13 @@
       "when": 1795447073145,
       "tag": "0000_burly_talos",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1795453434475,
+      "tag": "0001_useful_big_bertha",
+      "breakpoints": true
     }
   ]
 }

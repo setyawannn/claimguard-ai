@@ -10,33 +10,71 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AntreanRouteImport } from './routes/antrean'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AntreanIndexRouteImport } from './routes/antrean.index'
+import { Route as AntreanClaimIdRouteImport } from './routes/antrean.$claimId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AntreanRoute = AntreanRouteImport.update({
+  id: '/antrean',
+  path: '/antrean',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AntreanIndexRoute = AntreanIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AntreanRoute,
+} as any)
+const AntreanClaimIdRoute = AntreanClaimIdRouteImport.update({
+  id: '/$claimId',
+  path: '/$claimId',
+  getParentRoute: () => AntreanRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/antrean': typeof AntreanRouteWithChildren
+  '/login': typeof LoginRoute
+  '/antrean/$claimId': typeof AntreanClaimIdRoute
+  '/antrean/': typeof AntreanIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/antrean/$claimId': typeof AntreanClaimIdRoute
+  '/antrean': typeof AntreanIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/antrean': typeof AntreanRouteWithChildren
+  '/login': typeof LoginRoute
+  '/antrean/$claimId': typeof AntreanClaimIdRoute
+  '/antrean/': typeof AntreanIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/antrean' | '/login' | '/antrean/$claimId' | '/antrean/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/login' | '/antrean/$claimId' | '/antrean'
+  id:
+    '__root__' | '/' | '/antrean' | '/login' | '/antrean/$claimId' | '/antrean/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AntreanRoute: typeof AntreanRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +86,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/antrean': {
+      id: '/antrean'
+      path: '/antrean'
+      fullPath: '/antrean'
+      preLoaderRoute: typeof AntreanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/antrean/': {
+      id: '/antrean/'
+      path: '/'
+      fullPath: '/antrean/'
+      preLoaderRoute: typeof AntreanIndexRouteImport
+      parentRoute: typeof AntreanRoute
+    }
+    '/antrean/$claimId': {
+      id: '/antrean/$claimId'
+      path: '/$claimId'
+      fullPath: '/antrean/$claimId'
+      preLoaderRoute: typeof AntreanClaimIdRouteImport
+      parentRoute: typeof AntreanRoute
+    }
   }
 }
 
+interface AntreanRouteChildren {
+  AntreanClaimIdRoute: typeof AntreanClaimIdRoute
+  AntreanIndexRoute: typeof AntreanIndexRoute
+}
+
+const AntreanRouteChildren: AntreanRouteChildren = {
+  AntreanClaimIdRoute: AntreanClaimIdRoute,
+  AntreanIndexRoute: AntreanIndexRoute,
+}
+
+const AntreanRouteWithChildren =
+  AntreanRoute._addFileChildren(AntreanRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AntreanRoute: AntreanRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

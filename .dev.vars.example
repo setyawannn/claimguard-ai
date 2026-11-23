@@ -1,4 +1,2 @@
-# Wrangler Local Secrets Example
-# Salin menjadi .dev.vars untuk `wrangler dev` / `@cloudflare/vite-plugin` lokal.
-UUPDP_HASH_SALT="ganti-dengan-random-hex-32-byte"
-GEMINI_API_KEY=""
+UUPDP_HASH_SALT="replace-with-64-char-hex-salt"
+GEMINI_API_KEY="your_gemini_api_key"

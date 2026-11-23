@@ -9,6 +9,7 @@ export type UserRole = z.infer<typeof userRoleSchema>
 
 export const sessionUserSchema = z.object({
   id: z.string().min(1),
+  email: z.string().email(),
   name: z.string().min(1),
   role: userRoleSchema,
   unitName: z.string().min(1),
@@ -17,33 +18,8 @@ export const sessionUserSchema = z.object({
 })
 export type SessionUser = z.infer<typeof sessionUserSchema>
 
-export const switchRoleInputSchema = z.object({
-  role: userRoleSchema,
+export const loginInputSchema = z.object({
+  email: z.string().trim().toLowerCase().email('Format email tidak valid'),
+  password: z.string().min(8, 'Kata sandi minimal 8 karakter'),
 })
-
-export const PERSONA_BY_ROLE: Record<UserRole, SessionUser> = {
-  verifikator: {
-    id: 'usr-mas-rian',
-    name: 'Mas Rian',
-    role: 'verifikator',
-    unitName: 'KC Malang',
-    branchCode: 'KC-MLG',
-    title: 'Verifikator Klaim Cabang',
-  },
-  auditor_wilayah: {
-    id: 'usr-ibu-anita',
-    name: 'Ibu Anita',
-    role: 'auditor_wilayah',
-    unitName: 'Divre Jatim',
-    branchCode: 'DIVRE-JTM',
-    title: 'Pengawas Anti-Fraud Wilayah',
-  },
-  kepala_cabang: {
-    id: 'usr-pak-rudi',
-    name: 'Pak Rudi',
-    role: 'kepala_cabang',
-    unitName: 'KC Malang',
-    branchCode: 'KC-MLG',
-    title: 'Kepala Kantor Cabang',
-  },
-}
+export type LoginInput = z.infer<typeof loginInputSchema>

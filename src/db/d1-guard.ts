@@ -53,10 +53,7 @@ export function getLocalD1Usage(): D1UsageCounters {
   return { reads: localReads, writes: localWrites }
 }
 
-/**
- * Membungkus Cloudflare D1Database dengan Circuit Breaker 95% (BLUEPRINT.md §5).
- * KV bersifat opsional agar pengembangan lokal sebelum binding USAGE_KV tetap aman.
- */
+// KV opsional agar dev lokal tanpa binding USAGE_KV tetap berjalan.
 export function createGuardedD1(
   db: D1Database,
   kv?: KVNamespace,

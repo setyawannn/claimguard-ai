@@ -12,12 +12,6 @@ export function isQuotaOrAuthError(error: unknown): boolean {
   return QUOTA_OR_AUTH_ERRORS.some((code) => error.message.includes(code))
 }
 
-/**
- * Konfigurasi QueryClient ramah kuota Cloudflare D1 Free Tier:
- * - refetchOnWindowFocus: false -> mencegah query ulang saat auditor bolak-balik tab e-Office
- * - staleTime 30 detik & gcTime 5 menit -> menekan rows_read D1
- * - retry berhenti instan pada error Circuit Breaker 95% atau RBAC
- */
 export function createAppQueryClient(): QueryClient {
   return new QueryClient({
     defaultOptions: {

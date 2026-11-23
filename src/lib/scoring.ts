@@ -8,7 +8,6 @@ function clampScore(value: number): number {
   return Math.max(0, Math.min(100, Math.round(value)))
 }
 
-// Layer 1: Aturan Medis Deterministik (bobot 40%)
 export function scoreRepeatBilling(
   daysSincePrevious: number | null,
   hasEmergencyIndication: boolean,
@@ -19,7 +18,6 @@ export function scoreRepeatBilling(
   return 10
 }
 
-// Layer 2: Deviasi Statistik Tarif (Z-Score) & Kapasitas BOR (bobot 35%)
 export function scoreTariffZScore(
   claimedTariffIdr: number,
   peerMeanIdr: number,
@@ -41,7 +39,6 @@ export function scoreBorAnomaly(
   return clampScore(score)
 }
 
-// Layer 3: Rasio Rujukan Sirkular Graf (bobot 25%)
 export function scoreCircularReferral(circularRatioPct: number): number {
   if (circularRatioPct > 20) return 90
   if (circularRatioPct > 5) return 55
@@ -80,7 +77,6 @@ export function calculateCompositeRiskScore(params: {
   }
 }
 
-// Trigger Thresholds Eskalasi Otomatis ke Lini 2 (Ibu Anita) — window 30 hari
 export const ESCALATION_THRESHOLDS = {
   clusterRejectionCount: 10,
   financialExposureIdr: 100_000_000,

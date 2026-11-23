@@ -1,5 +1,3 @@
-// Penyamaran identitas pasien sesuai UU PDP No. 27 Tahun 2022 (Web Crypto native untuk browser & workerd)
-
 export function maskNik(rawNik: string): string {
   const digits = rawNik.replace(/\D/g, '')
   if (digits.length < 10) return '******'
