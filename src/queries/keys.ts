@@ -8,7 +8,11 @@ import type {
   InvestigationSearchInput,
   RegionalDashboardFilterInput,
 } from '#/schemas/clusters.schema'
-import type { HospitalsFilterInput } from '#/schemas/hospitals.schema'
+import type {
+  ExecutiveDashboardFilterInput,
+  HospitalsFilterInput,
+  PksDecisionsFilterInput,
+} from '#/schemas/hospitals.schema'
 
 export const queryKeys = {
   session: {
@@ -39,8 +43,8 @@ export const queryKeys = {
   },
   hospitals: {
     all: ['hospitals'] as const,
-    executiveDashboard: (branchCode: string) =>
-      ['hospitals', 'executive-dashboard', branchCode] as const,
+    executiveDashboard: (filters: ExecutiveDashboardFilterInput) =>
+      ['hospitals', 'executive-dashboard', filters] as const,
     list: (filters: HospitalsFilterInput) =>
       ['hospitals', 'list', filters] as const,
     detail: (hospitalId: string) =>
@@ -48,6 +52,6 @@ export const queryKeys = {
   },
   pks: {
     all: ['pks'] as const,
-    list: (branchCode: string) => ['pks', 'list', branchCode] as const,
+    list: (filters: PksDecisionsFilterInput) => ['pks', 'list', filters] as const,
   },
 } as const

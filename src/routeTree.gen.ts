@@ -12,11 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AntreanRouteImport } from './routes/antrean'
 import { Route as InvestigasiRouteImport } from './routes/investigasi'
+import { Route as KebijakanRouteImport } from './routes/kebijakan'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as RaporRsRouteImport } from './routes/rapor-rs'
 import { Route as RiwayatRouteImport } from './routes/riwayat'
 import { Route as TindakLanjutRouteImport } from './routes/tindak-lanjut'
 import { Route as AntreanIndexRouteImport } from './routes/antrean.index'
 import { Route as AntreanClaimIdRouteImport } from './routes/antrean.$claimId'
+import { Route as RaporRsIndexRouteImport } from './routes/rapor-rs.index'
+import { Route as RaporRsHospitalIdRouteImport } from './routes/rapor-rs.$hospitalId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -33,9 +37,19 @@ const InvestigasiRoute = InvestigasiRouteImport.update({
   path: '/investigasi',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KebijakanRoute = KebijakanRouteImport.update({
+  id: '/kebijakan',
+  path: '/kebijakan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RaporRsRoute = RaporRsRouteImport.update({
+  id: '/rapor-rs',
+  path: '/rapor-rs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RiwayatRoute = RiwayatRouteImport.update({
@@ -58,36 +72,57 @@ const AntreanClaimIdRoute = AntreanClaimIdRouteImport.update({
   path: '/$claimId',
   getParentRoute: () => AntreanRoute,
 } as any)
+const RaporRsIndexRoute = RaporRsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => RaporRsRoute,
+} as any)
+const RaporRsHospitalIdRoute = RaporRsHospitalIdRouteImport.update({
+  id: '/$hospitalId',
+  path: '/$hospitalId',
+  getParentRoute: () => RaporRsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/antrean': typeof AntreanRouteWithChildren
   '/investigasi': typeof InvestigasiRoute
+  '/kebijakan': typeof KebijakanRoute
   '/login': typeof LoginRoute
+  '/rapor-rs': typeof RaporRsRouteWithChildren
   '/riwayat': typeof RiwayatRoute
   '/tindak-lanjut': typeof TindakLanjutRoute
   '/antrean/$claimId': typeof AntreanClaimIdRoute
+  '/rapor-rs/$hospitalId': typeof RaporRsHospitalIdRoute
   '/antrean/': typeof AntreanIndexRoute
+  '/rapor-rs/': typeof RaporRsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/investigasi': typeof InvestigasiRoute
+  '/kebijakan': typeof KebijakanRoute
   '/login': typeof LoginRoute
   '/riwayat': typeof RiwayatRoute
   '/tindak-lanjut': typeof TindakLanjutRoute
   '/antrean/$claimId': typeof AntreanClaimIdRoute
+  '/rapor-rs/$hospitalId': typeof RaporRsHospitalIdRoute
   '/antrean': typeof AntreanIndexRoute
+  '/rapor-rs': typeof RaporRsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/antrean': typeof AntreanRouteWithChildren
   '/investigasi': typeof InvestigasiRoute
+  '/kebijakan': typeof KebijakanRoute
   '/login': typeof LoginRoute
+  '/rapor-rs': typeof RaporRsRouteWithChildren
   '/riwayat': typeof RiwayatRoute
   '/tindak-lanjut': typeof TindakLanjutRoute
   '/antrean/$claimId': typeof AntreanClaimIdRoute
+  '/rapor-rs/$hospitalId': typeof RaporRsHospitalIdRoute
   '/antrean/': typeof AntreanIndexRoute
+  '/rapor-rs/': typeof RaporRsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -95,37 +130,50 @@ export interface FileRouteTypes {
     | '/'
     | '/antrean'
     | '/investigasi'
+    | '/kebijakan'
     | '/login'
+    | '/rapor-rs'
     | '/riwayat'
     | '/tindak-lanjut'
     | '/antrean/$claimId'
+    | '/rapor-rs/$hospitalId'
     | '/antrean/'
+    | '/rapor-rs/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/investigasi'
+    | '/kebijakan'
     | '/login'
     | '/riwayat'
     | '/tindak-lanjut'
     | '/antrean/$claimId'
+    | '/rapor-rs/$hospitalId'
     | '/antrean'
+    | '/rapor-rs'
   id:
     | '__root__'
     | '/'
     | '/antrean'
     | '/investigasi'
+    | '/kebijakan'
     | '/login'
+    | '/rapor-rs'
     | '/riwayat'
     | '/tindak-lanjut'
     | '/antrean/$claimId'
+    | '/rapor-rs/$hospitalId'
     | '/antrean/'
+    | '/rapor-rs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AntreanRoute: typeof AntreanRouteWithChildren
   InvestigasiRoute: typeof InvestigasiRoute
+  KebijakanRoute: typeof KebijakanRoute
   LoginRoute: typeof LoginRoute
+  RaporRsRoute: typeof RaporRsRouteWithChildren
   RiwayatRoute: typeof RiwayatRoute
   TindakLanjutRoute: typeof TindakLanjutRoute
 }
@@ -153,11 +201,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InvestigasiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kebijakan': {
+      id: '/kebijakan'
+      path: '/kebijakan'
+      fullPath: '/kebijakan'
+      preLoaderRoute: typeof KebijakanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rapor-rs': {
+      id: '/rapor-rs'
+      path: '/rapor-rs'
+      fullPath: '/rapor-rs'
+      preLoaderRoute: typeof RaporRsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/riwayat': {
@@ -188,6 +250,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AntreanClaimIdRouteImport
       parentRoute: typeof AntreanRoute
     }
+    '/rapor-rs/': {
+      id: '/rapor-rs/'
+      path: '/'
+      fullPath: '/rapor-rs/'
+      preLoaderRoute: typeof RaporRsIndexRouteImport
+      parentRoute: typeof RaporRsRoute
+    }
+    '/rapor-rs/$hospitalId': {
+      id: '/rapor-rs/$hospitalId'
+      path: '/$hospitalId'
+      fullPath: '/rapor-rs/$hospitalId'
+      preLoaderRoute: typeof RaporRsHospitalIdRouteImport
+      parentRoute: typeof RaporRsRoute
+    }
   }
 }
 
@@ -204,11 +280,26 @@ const AntreanRouteChildren: AntreanRouteChildren = {
 const AntreanRouteWithChildren =
   AntreanRoute._addFileChildren(AntreanRouteChildren)
 
+interface RaporRsRouteChildren {
+  RaporRsHospitalIdRoute: typeof RaporRsHospitalIdRoute
+  RaporRsIndexRoute: typeof RaporRsIndexRoute
+}
+
+const RaporRsRouteChildren: RaporRsRouteChildren = {
+  RaporRsHospitalIdRoute: RaporRsHospitalIdRoute,
+  RaporRsIndexRoute: RaporRsIndexRoute,
+}
+
+const RaporRsRouteWithChildren =
+  RaporRsRoute._addFileChildren(RaporRsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AntreanRoute: AntreanRouteWithChildren,
   InvestigasiRoute: InvestigasiRoute,
+  KebijakanRoute: KebijakanRoute,
   LoginRoute: LoginRoute,
+  RaporRsRoute: RaporRsRouteWithChildren,
   RiwayatRoute: RiwayatRoute,
   TindakLanjutRoute: TindakLanjutRoute,
 }
